@@ -1,21 +1,20 @@
-KHS_lizardppt
+Como visualizar mejor Alometria en reptiles
 ========================================================
 author: Karen Huentenao Silva
-date: "'Sys.Date()'"
+date: "`r Sys.Date()`"
 autosize: true
 
 
-IntroducciOn
+Introduccion
 ========================================================
 incremental:true
 
-Forma y tamaNo del cuerpo para entender fenomenos biologicos:
-En reptiles diferentes tamaNos corporales dependiendo de la categoria taxonomica
+Forma y tamano del cuerpo para entender fenomenos biologicos:
+modelos de escalamiento corporal
 
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Reptiles
+- segun categoria taxonomica
 
 ***
 Sesgos en visualizacion de datos ej. Representacion del tamano corporal
@@ -23,6 +22,18 @@ Sesgos en visualizacion de datos ej. Representacion del tamano corporal
 * como representar el tamano corporal
 * que afecta a tener una vision sesgada 
 * algunos ejemplos de visualizacion de datos
+
+Order Squamata
+===
+class:small-code
+```{r}
+knitr::include_graphics("https://i.etsystatic.com/5572295/r/il/7f69b9/1220618622/il_570xN.1220618622_i1r7.jpg")
+```
+***
+```{r}
+knitr::include_graphics("http://www.bio.miami.edu/dana/pix/squamata.jpg")
+```
+
 
 Resultados
 ========================================================
@@ -91,9 +102,17 @@ View(Summary.IFSw)
 
 ```
 
-Formas de mostrar la relacion peso y tamano corporal
-========================================================
 
+Formas de mostrar la relacion peso y tamano corporal
+```{r}
+
+kable(ME, caption = "Tabla 2. Resumen del modelo lineal")
+peso.total<-median(li$Weight, na.rm = T)
+```
+
+
+Grafico de puntos
+====
 ```{r, echo=FALSE}
 
 g<-ggplot(li, aes(x = mm, y = Weight)) + geom_point(aes(color=Family))+theme_classic()
@@ -117,7 +136,7 @@ ggplot(li, aes(x = Family, y = mm)) + geom_boxplot(aes(color = Family))+theme_cl
 ggplot(li, aes(x = infraorder, y = mm)) + geom_boxplot(aes(fill = infraorder))+theme_classic()
 ```
 
-otros ejemplos
+Otros ejemplos
 ===
 
 ```{r}
@@ -134,4 +153,39 @@ Tablas exploracion
 ```{r}
 kable(Summary.IFSw)
 ```
+
+
+===
+La mejor forma de mostrar los datos dependera
+* la pregunta
+* los datos disponibles
+* el tipo de variable
+
+***
+
+
+
+
+* el rango de los datos
+* uso eficiente de datos
+
+===
+Amphisbaenia (revised after Vidal & Hedges 2009)
+```{r}
+knitr::include_graphics("https://static.inaturalist.org/photos/174020/large.jpg")
+```
+***
+Sauria (Lacertilla)-Lizard
+```{r}
+knitr::include_graphics("http://www.igoterra.com/photo/237/015045_w_300.jpg")
+```
+
+Acanthocercus adramitanus (Anderson 1896)
+```{r}
+knitr::include_graphics("https://www.reptarium.cz/content/photo_01/03000003127_01.jpg")
+```
+
+
+$$Gracias$$
+
 
