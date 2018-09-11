@@ -1,0 +1,137 @@
+KHS_lizardppt
+========================================================
+author: Karen Huentenao Silva
+date: "'Sys.Date()'"
+autosize: true
+
+
+IntroducciOn
+========================================================
+incremental:true
+
+Forma y tamaNo del cuerpo para entender fenomenos biologicos:
+En reptiles diferentes tamaNos corporales dependiendo de la categoria taxonomica
+
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+***
+Sesgos en visualizacion de datos ej. Representacion del tamano corporal
+
+* como representar el tamano corporal
+* que afecta a tener una vision sesgada 
+* algunos ejemplos de visualizacion de datos
+
+Resultados
+========================================================
+class: small-code
+incremental: true
+left: 70%
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+
+setwd("D:/Desktop/KHS")
+#paquetes
+library(dplyr)
+library(broom)
+library(knitr)
+library(rmarkdown)
+library(stargazer)
+library(tidyverse)
+library(dismo)
+library(tidyr)
+#gather y spread
+library(ggplot2)
+library(broom)
+
+
+#########################
+#inicio
+########################
+library(readxl)
+lizard2 <- read_excel("lizard2.xlsx")
+View(lizard2)
+
+library(readxl)
+lizard2 <- read_excel("lizard2.xlsx")
+View(lizard2)
+
+saveRDS(lizard2, "lizard.rds")
+
+li <- readRDS("lizard.rds")
+View(li)
+
+summary(li)
+
+
+library(dplyr)
+
+library(broom)
+library(knitr)
+Me <- lm(data=li, mm ~ Weight)
+ME<-tidy(Me)
+kable(ME, caption = "Tabla 2. Resumen del modelo lineal")
+#Eso de arriba en el chunk sirve para ponerlos titulos de las tablas
+
+#Esto es el ilank coe o como se escriba,
+#eso lo puedes meter en un texto que diga " el peso total de la especie 8.6
+# pero en el chanck vatodo el comando de abajo pero en el texto lo que se 
+#es solo el valor"
+peso.total<-median(li$Weight, na.rm = T)
+peso.total
+
+library(ggplot2)
+Summary.IFSw <- group_by(li, infraorder,Family, SVL)
+Summary.IFSw <- summarize(Summary.IFSw, Mean.weight = mean(Weight), SD.weight = sd(Weight))
+Summary.IFSw
+View(Summary.IFSw)
+
+```
+
+Formas de mostrar la relacion peso y tamano corporal
+========================================================
+
+```{r, echo=FALSE}
+
+g<-ggplot(li, aes(x = mm, y = Weight)) + geom_point(aes(color=Family))+theme_classic()
+g
+
+```
+***
+```{r}
+k<-ggplot(li, aes(x = mm, y = Weight)) + geom_point(aes(color=Family))+theme_classic()+scale_y_log10()+ scale_x_log10()
+k
+
+```
+
+Boxplot
+=====
+```{r}
+ggplot(li, aes(x = Family, y = mm)) + geom_boxplot(aes(color = Family))+theme_classic()
+```
+***
+```{r}
+ggplot(li, aes(x = infraorder, y = mm)) + geom_boxplot(aes(fill = infraorder))+theme_classic()
+```
+
+otros ejemplos
+===
+
+```{r}
+ggplot(li, aes(x = infraorder, y = mm)) + geom_violin(aes(fill = infraorder))+theme_classic()
+```
+***
+```{r}
+ggplot(li, aes(x = infraorder, y = mm)) + geom_col(aes(fill = infraorder))+theme_classic()
+```
+
+
+Tablas exploracion
+=====
+```{r}
+kable(Summary.IFSw)
+```
+
